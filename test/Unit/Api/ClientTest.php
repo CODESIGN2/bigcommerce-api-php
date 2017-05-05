@@ -875,6 +875,15 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         Client::createWebhook(array());
     }
+
+    public function testUpdatingWebhookPutsToTheSpecifiedResource()
+    {
+        $this->connection->expects($this->once())
+            ->method('put')
+            ->with($this->basePath . '/hooks/1', (object)array());
+
+        Client::updateWebhook(1, array());
+    }
     
     public function testDeleteWebhookDeletesToTheSpecifiedResource()
     {
