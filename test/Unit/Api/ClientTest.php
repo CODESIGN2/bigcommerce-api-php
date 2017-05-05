@@ -842,6 +842,15 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         Client::deleteAllGiftCertificates();
     }
 
+    public function testDeleteWebhookDeletesToTheSpecifiedResource()
+    {
+        $this->connection->expects($this->once())
+            ->method('delete')
+            ->with($this->basePath . '/hooks/1');
+
+        Client::deleteWebhook(1);
+    }
+
     public function testCreatingProductReviewPostsToTheProductReviewResource()
     {
         $this->connection->expects($this->once())
