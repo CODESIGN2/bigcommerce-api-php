@@ -846,7 +846,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $this->connection->expects($this->once())
             ->method('get')
-            ->with($this->basePath . '/hooks/', false)
+            ->with($this->basePath . '/hooks', false)
             ->will($this->returnValue(array(new \Bigcommerce\Api\Resource(), new \Bigcommerce\Api\Resource())));
 
         $collection = Client::listWebhooks();
