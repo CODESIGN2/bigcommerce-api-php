@@ -867,6 +867,15 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Bigcommerce\\Api\\Resource', $resource);
     }
     
+    public function testCreatingWebhookPostsToTheSpecifiedResource()
+    {
+        $this->connection->expects($this->once())
+            ->method('post')
+            ->with($this->basePath . '/hooks', (object)array());
+
+        Client::createWebhook(array());
+    }
+    
     public function testDeleteWebhookDeletesToTheSpecifiedResource()
     {
         $this->connection->expects($this->once())
