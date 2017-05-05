@@ -842,6 +842,31 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         Client::deleteAllGiftCertificates();
     }
 
+    public function testGettingWebhooksReturnsAllWebhooks()
+    {
+        $this->connection->expects($this->once())
+            ->method('get')
+            ->with($this->basePath . '/hooks/', false)
+            ->will($this->returnValue(array(array(), array())));
+
+        $collection = Client::listWebhooks();
+        $this->assertInternalType('array', $collection);
+        foreach ($collection as $resource) {
+            $this->assertInstanceOf('Bigcommerce\\Api\\Resource', $resource);
+        }
+    }
+    
+    public function testGettingSpecifiedWebhookReturnsTheSpecifiedWebhook()
+    {
+        $this->connection->expects($this->once())
+            ->method('get')
+            ->with($this->basePath . '/hooks/1', false)
+            ->will($this->returnValue(array()));
+
+        $resource = Client::getWebhook(1);
+        $this->assertInstanceOf('Bigcommerce\\Api\\Resource', $resource);
+    }
+    
     public function testDeleteWebhookDeletesToTheSpecifiedResource()
     {
         $this->connection->expects($this->once())
